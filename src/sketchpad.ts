@@ -37,7 +37,6 @@ export default class Sketchpad {
     if (this._strokes.length > 0) {
       this.redraw();
     }
-
     this.listen();
   }
 
@@ -151,6 +150,8 @@ export default class Sketchpad {
     this.undoneStrokes = [];
     this._strokes = [];
     this.redraw();
+
+
   }
 
   // Draw a straight line
@@ -243,6 +244,10 @@ export default class Sketchpad {
   // Erase the entire canvas
   private clearCanvas(): void {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.ctx.beginPath();
+    this.ctx.rect(0, 0, this.canvas.width, this.canvas.height);
+    this.ctx.fillStyle = "white";
+    this.ctx.fill();
 
     if (this.backgroundColor) {
       this.ctx.fillStyle = this.backgroundColor;
@@ -307,6 +312,10 @@ export default class Sketchpad {
   // Redraw the whole canvas
   private redraw(): void {
     this.clearCanvas();
+    this.ctx.beginPath();
+    this.ctx.rect(0, 0, this.canvas.width, this.canvas.height);
+    this.ctx.fillStyle = "white";
+    this.ctx.fill();
     this._strokes.forEach((s) => this.drawStroke(s));
   }
 
